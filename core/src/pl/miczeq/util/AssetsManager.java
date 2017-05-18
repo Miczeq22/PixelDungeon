@@ -26,10 +26,16 @@ public class AssetsManager implements Disposable, AssetErrorListener
     public class StageUI
     {
         public final TextureRegion logo;
+        public final TextureRegion menuBG;
+        public final TextureRegion playBtn;
+        public final TextureRegion playBtnHover;
 
         public StageUI(TextureAtlas atlas)
         {
             logo = atlas.findRegion("PixelDungeonLogo");
+            menuBG = atlas.findRegion("MenuBG");
+            playBtn = atlas.findRegion("PlayBtn");
+            playBtnHover = atlas.findRegion("PlayBtnHover");
         }
     }
 

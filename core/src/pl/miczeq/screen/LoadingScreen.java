@@ -43,7 +43,7 @@ public class LoadingScreen extends AbstractScreen
 
         if(AssetsManager.instance.manager.update() && (progress >= AssetsManager.instance.manager.getProgress() - 0.01f))
         {
-
+            game.setScreen(new MenuScreen(game));
         }
     }
 

@@ -22,7 +22,25 @@ public class AssetsManager implements Disposable, AssetErrorListener
     public StageUI stageUI;
     public ClassCards classCards;
 
+    public Mage mage;
+
     private AssetsManager() {}
+
+    public class Mage
+    {
+        public final TextureRegion mage;
+        public final Texture frontMoving;
+        public final Texture backMoving;
+        public final Texture sideMoving;
+
+        public Mage(TextureAtlas atlas)
+        {
+            mage = atlas.findRegion("Mage");
+            frontMoving = manager.get("mage/MageFrontMoving.png");
+            backMoving = manager.get("mage/MageBackMoving.png");
+            sideMoving = manager.get("mage/MageSideMoving.png");
+        }
+    }
 
     public class ClassCards
     {
@@ -75,13 +93,19 @@ public class AssetsManager implements Disposable, AssetErrorListener
         manager.load("classCards/cards.pack.atlas", TextureAtlas.class);
         manager.load("knight.pack.atlas", TextureAtlas.class);
         manager.load("mage.pack.atlas", TextureAtlas.class);
+        manager.load("mage/Mage.png", Texture.class);
+        manager.load("mage/MageBackMoving.png", Texture.class);
+        manager.load("mage/MageFrontMoving.png", Texture.class);
+        manager.load("mage/MageSideMoving.png", Texture.class);
         manager.finishLoading();
 
         TextureAtlas uiAtlas = manager.get("ui.pack.atlas");
         TextureAtlas cardsAtlas = manager.get("classCards/cards.pack.atlas", TextureAtlas.class);
+        TextureAtlas mageAtlas = manager.get("mage.pack.atlas", TextureAtlas.class);
 
         stageUI = new StageUI(uiAtlas);
         classCards = new ClassCards(cardsAtlas);
+        mage = new Mage(mageAtlas);
     }
 
     @Override
@@ -93,7 +117,10 @@ public class AssetsManager implements Disposable, AssetErrorListener
     @Override
     public void dispose()
     {
-        manager.unload("ui/PixelDungeonLogo.png");
+        manager.unload("ui.pack.atlas");
+        manager.unload("classCards/cards.pack.atlas");
+        manager.unload("knight.pack.atlas");
+        manager.unload("mage.pack.atlas");
         manager.dispose();
     }
 }

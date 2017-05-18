@@ -34,7 +34,7 @@ public class MenuScreen extends AbstractScreen
         if(playBtn.pointerIsIn(stageCamera))
         {
             playBtn.setTextureRegion(AssetsManager.instance.stageUI.playBtnHover);
-            if(Gdx.input.isTouched())
+            if(Gdx.input.justTouched())
             {
                 game.setScreen(new ClassSelectionScreen(game));
             }

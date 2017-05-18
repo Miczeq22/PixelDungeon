@@ -18,9 +18,13 @@ public class Constants
     public static final float STAGE_HEIGHT = 480.0f;
 
     public static final float CLASS_CARD_WIDTH = 245.0f;
-    public static final float CLASS_CARD_HEIGHT = 350.0f;
+    public static final float CLASS_CARD_HEIGHT = STAGE_HEIGHT - 40.0f;
 
     public static final float CLASS_CARD_Y = STAGE_HEIGHT / 2.0f - CLASS_CARD_HEIGHT / 2.0f;
+
+    public static final float FRICTION = 0.92f;
+
+    public static final float MAGE_MOVING_ANIMATION_SPEED = 0.05f;
 
     public enum ClassType
     {

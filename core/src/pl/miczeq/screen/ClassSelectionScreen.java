@@ -52,7 +52,7 @@ public class ClassSelectionScreen extends AbstractScreen
     {
         for(int i = 0; i < classCards.length; i++)
         {
-            if(classCards[i].pointerIsIn(stageCamera) && Gdx.input.isTouched())
+            if(classCards[i].pointerIsIn(stageCamera) && Gdx.input.justTouched())
             {
                 selectedClass = classCards[i].getClassType();
                 cardSelected = true;
@@ -61,12 +61,12 @@ public class ClassSelectionScreen extends AbstractScreen
 
         if(cardSelected)
         {
-            if(selectBtn.pointerIsIn(stageCamera) && Gdx.input.isTouched())
+            if(selectBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched())
             {
-
+                game.setScreen(new GameScreen(game, selectedClass));
             }
 
-            if(backBtn.pointerIsIn(stageCamera) && Gdx.input.isTouched())
+            if(backBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched())
             {
                 cardSelected = false;
                 selectedClass = Constants.ClassType.NONE;

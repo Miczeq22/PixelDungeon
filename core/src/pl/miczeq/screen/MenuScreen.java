@@ -1,5 +1,6 @@
 package pl.miczeq.screen;
 
+import com.badlogic.gdx.Gdx;
 import pl.miczeq.main.Main;
 import pl.miczeq.util.AssetsManager;
 import pl.miczeq.util.Constants;
@@ -33,6 +34,10 @@ public class MenuScreen extends AbstractScreen
         if(playBtn.pointerIsIn(stageCamera))
         {
             playBtn.setTextureRegion(AssetsManager.instance.stageUI.playBtnHover);
+            if(Gdx.input.isTouched())
+            {
+                game.setScreen(new ClassSelectionScreen(game));
+            }
         }
         else
         {

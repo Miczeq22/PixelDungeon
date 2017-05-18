@@ -1,7 +1,12 @@
 package pl.miczeq.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import pl.miczeq.main.Main;
+import pl.miczeq.util.Animator;
 import pl.miczeq.util.AssetsManager;
 import pl.miczeq.util.Constants;
 import pl.miczeq.util.MyButton;
@@ -17,6 +22,11 @@ public class MenuScreen extends AbstractScreen
 
     private MyButton playBtn;
 
+    private Animator bgAnimation;
+    private float stateTime;
+
+    private Image bgImg;
+
     public MenuScreen(Main game)
     {
         super(game);
@@ -27,16 +37,39 @@ public class MenuScreen extends AbstractScreen
         super.init();
 
         playBtn = new MyButton(Constants.STAGE_WIDTH - playBtnWidth - 40.0f, 20.0f, playBtnWidth, playBtnHeight, AssetsManager.instance.stageUI.playBtn);
+        bgAnimation = new Animator(AssetsManager.instance.stageUI.menuBgAnimaton, 4, 0.10f);
+        stateTime = 0.0f;
+        bgImg = new Image(bgAnimation.getCurrentFrame());
+        bgImg.setSize(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT);
+        bgImg.addAction(Actions.sequence(Actions.alpha(0.0f), Actions.fadeIn(1.5f)));
+
+        playBtn = new MyButton(Constants.STAGE_WIDTH - playBtnWidth - 40.0f, 20.0f, playBtnWidth, playBtnHeight, AssetsManager.instance.stageUI.playBtn);
+        playBtn.addAction(Actions.sequence(Actions.alpha(0.0f), Actions.delay(1.5f), Actions.fadeIn(0.5f)));
+
+        stage.addActor(bgImg);
+        stage.addActor(playBtn);
     }
 
     public void update(float delta)
     {
+        stage.act(delta);
+        stateTime += delta;
+        bgAnimation.setStateTime(stateTime);
+        bgImg.setDrawable(new SpriteDrawable(new Sprite(bgAnimation.getCurrentFrame())));
+
         if(playBtn.pointerIsIn(stageCamera))
         {
             playBtn.setTextureRegion(AssetsManager.instance.stageUI.playBtnHover);
             if(Gdx.input.justTouched())
             {
-                game.setScreen(new ClassSelectionScreen(game));
+                playBtn.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.run(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        game.setScreen(new ClassSelectionScreen(game));
+                    }
+                })));
             }
         }
         else
@@ -50,14 +83,9 @@ public class MenuScreen extends AbstractScreen
         super.render(delta);
 
         batch.setProjectionMatrix(stageCamera.combined);
-        drawBG();
-        playBtn.draw(batch);
-    }
 
-    private void drawBG()
-    {
         batch.begin();
-            batch.draw(AssetsManager.instance.stageUI.menuBG, 0.0f, 0.0f, Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT);
+            stage.draw();
         batch.end();
     }
 }

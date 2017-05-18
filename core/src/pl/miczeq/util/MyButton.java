@@ -2,15 +2,17 @@ package pl.miczeq.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 /**
  * Created by mikolaj on 5/18/17.
  * Pixel Dungeon
  */
-public class MyButton
+public class MyButton extends Image
 {
     private float x;
     private float y;
@@ -18,20 +20,16 @@ public class MyButton
     private float height;
     private TextureRegion textureRegion;
 
+
     public MyButton(float x, float y, float width, float height, TextureRegion textureRegion)
     {
+        super(textureRegion);
+        this.setSize(width, height);
+        this.setPosition(x, y);
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.textureRegion = textureRegion;
-    }
-
-    public void draw(SpriteBatch batch)
-    {
-        batch.begin();
-            batch.draw(textureRegion, x, y, width, height);
-        batch.end();
     }
 
     public boolean pointerIsIn(OrthographicCamera camera)
@@ -43,6 +41,6 @@ public class MyButton
 
     public void setTextureRegion(TextureRegion textureRegion)
     {
-        this.textureRegion = textureRegion;
+        this.setDrawable(new SpriteDrawable(new Sprite(textureRegion)));
     }
 }

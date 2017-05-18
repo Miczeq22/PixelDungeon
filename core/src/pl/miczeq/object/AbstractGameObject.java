@@ -1,8 +1,8 @@
 package pl.miczeq.object;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
@@ -16,7 +16,7 @@ public abstract class AbstractGameObject
     protected float width;
     protected float height;
 
-    protected TextureRegion textureRegion;
+    protected Texture texture;
 
     public AbstractGameObject(float x, float y, float width, float height)
     {
@@ -29,7 +29,7 @@ public abstract class AbstractGameObject
     public void draw(SpriteBatch batch)
     {
         batch.begin();
-            batch.draw(textureRegion, x, y, width, height);
+            batch.draw(texture, x, y, width, height);
         batch.end();
     }
 

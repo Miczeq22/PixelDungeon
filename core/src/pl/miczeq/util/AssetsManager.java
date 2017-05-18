@@ -21,21 +21,32 @@ public class AssetsManager implements Disposable, AssetErrorListener
 
     public StageUI stageUI;
     public ClassCards classCards;
+    public Room room;
 
     public Mage mage;
 
     private AssetsManager() {}
 
+    public class Room
+    {
+        public final TextureRegion room;
+
+        public Room(TextureAtlas atlas)
+        {
+            room = atlas.findRegion("room");
+        }
+    }
+
     public class Mage
     {
-        public final TextureRegion mage;
+        public final Texture mage;
         public final Texture frontMoving;
         public final Texture backMoving;
         public final Texture sideMoving;
 
-        public Mage(TextureAtlas atlas)
+        public Mage()
         {
-            mage = atlas.findRegion("Mage");
+            mage = manager.get("mage/Mage.png");
             frontMoving = manager.get("mage/MageFrontMoving.png");
             backMoving = manager.get("mage/MageBackMoving.png");
             sideMoving = manager.get("mage/MageSideMoving.png");
@@ -75,6 +86,8 @@ public class AssetsManager implements Disposable, AssetErrorListener
         public final TextureRegion selectBtn;
         public final TextureRegion backBtn;
 
+        public final Texture menuBgAnimaton;
+
         public StageUI(TextureAtlas atlas)
         {
             logo = atlas.findRegion("PixelDungeonLogo");
@@ -83,6 +96,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
             playBtnHover = atlas.findRegion("PlayBtnHover");
             selectBtn = atlas.findRegion("SelectBtn");
             backBtn = atlas.findRegion("BackBtn");
+            menuBgAnimaton = manager.get("BGAnimation.png");
         }
     }
 
@@ -91,21 +105,22 @@ public class AssetsManager implements Disposable, AssetErrorListener
         manager = new AssetManager();
         manager.load("ui.pack.atlas", TextureAtlas.class);
         manager.load("classCards/cards.pack.atlas", TextureAtlas.class);
-        manager.load("knight.pack.atlas", TextureAtlas.class);
-        manager.load("mage.pack.atlas", TextureAtlas.class);
         manager.load("mage/Mage.png", Texture.class);
         manager.load("mage/MageBackMoving.png", Texture.class);
         manager.load("mage/MageFrontMoving.png", Texture.class);
         manager.load("mage/MageSideMoving.png", Texture.class);
+        manager.load("pixelDungeon.pack.atlas", TextureAtlas.class);
+        manager.load("BGAnimation.png", Texture.class);
         manager.finishLoading();
 
         TextureAtlas uiAtlas = manager.get("ui.pack.atlas");
         TextureAtlas cardsAtlas = manager.get("classCards/cards.pack.atlas", TextureAtlas.class);
-        TextureAtlas mageAtlas = manager.get("mage.pack.atlas", TextureAtlas.class);
+        TextureAtlas restAtlas = manager.get("pixelDungeon.pack.atlas", TextureAtlas.class);
 
         stageUI = new StageUI(uiAtlas);
         classCards = new ClassCards(cardsAtlas);
-        mage = new Mage(mageAtlas);
+        room = new Room(restAtlas);
+        mage = new Mage();
     }
 
     @Override
@@ -119,8 +134,6 @@ public class AssetsManager implements Disposable, AssetErrorListener
     {
         manager.unload("ui.pack.atlas");
         manager.unload("classCards/cards.pack.atlas");
-        manager.unload("knight.pack.atlas");
-        manager.unload("mage.pack.atlas");
         manager.dispose();
     }
 }

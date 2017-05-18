@@ -17,6 +17,7 @@ public class WorldRenderer
 
     public void render(SpriteBatch batch)
     {
+        worldController.getRoom().draw(batch);
         worldController.getPlayer().draw(batch);
     }
 }

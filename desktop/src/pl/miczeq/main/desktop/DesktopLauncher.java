@@ -24,10 +24,9 @@ public class DesktopLauncher
 					"/home/mikolaj/IdeaProjects/Pixel Dungeon/android/assets/", "ui.pack");
 			TexturePacker.process(settings, "/home/mikolaj/IdeaProjects/Pixel Dungeon/desktop/assets-raw/classCards/",
 					"/home/mikolaj/IdeaProjects/Pixel Dungeon/android/assets/classCards/", "cards.pack");
-			TexturePacker.process(settings, "/home/mikolaj/IdeaProjects/Pixel Dungeon/desktop/assets-raw/knight/",
-					"/home/mikolaj/IdeaProjects/Pixel Dungeon/android/assets/", "knight.pack");
-			TexturePacker.process(settings, "/home/mikolaj/IdeaProjects/Pixel Dungeon/desktop/assets-raw/mage/",
-					"/home/mikolaj/IdeaProjects/Pixel Dungeon/android/assets/", "mage.pack");
+
+			TexturePacker.process(settings, "/home/mikolaj/IdeaProjects/Pixel Dungeon/desktop/assets-raw/rest/",
+					"/home/mikolaj/IdeaProjects/Pixel Dungeon/android/assets/", "pixelDungeon.pack");
 		}
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

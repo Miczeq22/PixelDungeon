@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * Created by mikolaj on 5/18/17.
  * Pixel Dungeon
  */
-public class ClassCard
+public class ClassCard extends Image
 {
     private final float x;
-    private final float y;
+    private float y;
     private final float width;
     private final float height;
 
@@ -22,31 +23,28 @@ public class ClassCard
 
     private final Constants.ClassType classType;
 
+    private Image infoImage;
+
     public ClassCard(float x, Constants.ClassType classType, TextureRegion cardTexture, TextureRegion infoTexture)
     {
+        super(cardTexture);
+
         this.x = x;
         this.cardTexture = cardTexture;
         this.infoTexture = infoTexture;
 
         this.classType = classType;
 
-        y = Constants.CLASS_CARD_Y;
+        y = 500.0f;
         width = Constants.CLASS_CARD_WIDTH;
         height = Constants.CLASS_CARD_HEIGHT;
-    }
 
-    public void drawCard(SpriteBatch batch)
-    {
-        batch.begin();
-            batch.draw(cardTexture, x, y, width, height);
-        batch.end();
-    }
+        this.setPosition(x, y);
+        this.setSize(width, height);
 
-    public void drawInfo(SpriteBatch batch)
-    {
-        batch.begin();
-            batch.draw(infoTexture, 0.0f, 80.0f, Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT - 80.0f);
-        batch.end();
+        infoImage = new Image(infoTexture);
+        infoImage.setPosition(-Constants.STAGE_WIDTH, 80.0f);
+        infoImage.setSize(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT - 80.0f);
     }
 
     public boolean pointerIsIn(OrthographicCamera camera)
@@ -59,5 +57,15 @@ public class ClassCard
     public Constants.ClassType getClassType()
     {
         return classType;
+    }
+
+    public void setY(float y)
+    {
+        this.y = y;
+    }
+
+    public Image getInfoImage()
+    {
+        return infoImage;
     }
 }

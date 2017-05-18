@@ -13,6 +13,7 @@ public class WorldController
     private Constants.ClassType classType;
 
     private AbstractClass player;
+    private Room room;
 
     public WorldController(Constants.ClassType classType)
     {
@@ -30,6 +31,8 @@ public class WorldController
                 player = new Mage(Constants.VIEWPORT_WIDTH / 2.0f, Constants.VIEWPORT_HEIGHT / 2.0f);
             }break;
         }
+
+        room = new Room(0.0f, 0.0f);
     }
 
     public void update(float delta)
@@ -40,5 +43,10 @@ public class WorldController
     public AbstractClass getPlayer()
     {
         return player;
+    }
+
+    public Room getRoom()
+    {
+        return room;
     }
 }

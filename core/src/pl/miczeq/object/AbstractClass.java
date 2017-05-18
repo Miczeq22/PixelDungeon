@@ -110,7 +110,7 @@ public abstract class AbstractClass extends AbstractGameObject
         }
         else
         {
-            drawTexture(textureRegion, batch);
+            super.draw(batch);
         }
     }
 

@@ -19,7 +19,7 @@ public class Mage extends AbstractClass
     {
         super.init();
 
-        textureRegion = AssetsManager.instance.mage.mage;
+        texture = AssetsManager.instance.mage.mage;
 
         frontMovingAnimation = new Animator(AssetsManager.instance.mage.frontMoving, 6, Constants.MAGE_MOVING_ANIMATION_SPEED);
         backMovingAnimation = new Animator(AssetsManager.instance.mage.backMoving, 6, Constants.MAGE_MOVING_ANIMATION_SPEED);

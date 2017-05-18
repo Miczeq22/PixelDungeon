@@ -1,0 +1,55 @@
+
+knight.pack.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Knight
+  rotate: false
+  xy: 364, 5
+  size: 38, 39
+  orig: 38, 39
+  offset: 0, 0
+  index: -1
+KnightBackAttack
+  rotate: false
+  xy: 2, 87
+  size: 384, 39
+  orig: 384, 39
+  offset: 0, 0
+  index: -1
+KnightBackMoving
+  rotate: false
+  xy: 364, 46
+  size: 156, 39
+  orig: 156, 39
+  offset: 0, 0
+  index: -1
+KnightFrontAttack
+  rotate: false
+  xy: 2, 2
+  size: 360, 40
+  orig: 360, 40
+  offset: 0, 0
+  index: -1
+KnightFrontMoving
+  rotate: false
+  xy: 606, 87
+  size: 152, 39
+  orig: 152, 39
+  offset: 0, 0
+  index: -1
+KnightSideAttack
+  rotate: false
+  xy: 2, 44
+  size: 360, 41
+  orig: 360, 41
+  offset: 0, 0
+  index: -1
+KnightSideMoving
+  rotate: false
+  xy: 388, 87
+  size: 216, 39
+  orig: 216, 39
+  offset: 0, 0
+  index: -1

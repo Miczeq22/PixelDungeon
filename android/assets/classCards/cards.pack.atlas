@@ -1,0 +1,27 @@
+
+cards.pack.png
+size: 64,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+archerCard
+  rotate: false
+  xy: 2, 2
+  size: 47, 70
+  orig: 47, 70
+  offset: 0, 0
+  index: -1
+knightCard
+  rotate: false
+  xy: 2, 146
+  size: 54, 70
+  orig: 54, 70
+  offset: 0, 0
+  index: -1
+mageCard
+  rotate: false
+  xy: 2, 74
+  size: 49, 70
+  orig: 49, 70
+  offset: 0, 0
+  index: -1

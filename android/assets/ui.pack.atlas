@@ -1,0 +1,48 @@
+
+ui.pack.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+BackBtn
+  rotate: false
+  xy: 468, 109
+  size: 40, 15
+  orig: 40, 15
+  offset: 0, 0
+  index: -1
+MenuBG
+  rotate: false
+  xy: 2, 24
+  size: 180, 100
+  orig: 180, 100
+  offset: 0, 0
+  index: -1
+PixelDungeonLogo
+  rotate: false
+  xy: 184, 24
+  size: 180, 100
+  orig: 180, 100
+  offset: 0, 0
+  index: -1
+PlayBtn
+  rotate: false
+  xy: 366, 64
+  size: 100, 60
+  orig: 100, 60
+  offset: 0, 0
+  index: -1
+PlayBtnHover
+  rotate: false
+  xy: 366, 2
+  size: 100, 60
+  orig: 100, 60
+  offset: 0, 0
+  index: -1
+SelectBtn
+  rotate: false
+  xy: 2, 7
+  size: 40, 15
+  orig: 40, 15
+  offset: 0, 0
+  index: -1

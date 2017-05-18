@@ -87,6 +87,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
         public final TextureRegion backBtn;
 
         public final Texture menuBgAnimaton;
+        public final Texture screenTransition;
 
         public StageUI(TextureAtlas atlas)
         {
@@ -97,6 +98,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
             selectBtn = atlas.findRegion("SelectBtn");
             backBtn = atlas.findRegion("BackBtn");
             menuBgAnimaton = manager.get("BGAnimation.png");
+            screenTransition = manager.get("ScreenTransition.png");
         }
     }
 
@@ -111,6 +113,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
         manager.load("mage/MageSideMoving.png", Texture.class);
         manager.load("pixelDungeon.pack.atlas", TextureAtlas.class);
         manager.load("BGAnimation.png", Texture.class);
+        manager.load("ScreenTransition.png", Texture.class);
         manager.finishLoading();
 
         TextureAtlas uiAtlas = manager.get("ui.pack.atlas");

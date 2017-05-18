@@ -26,6 +26,13 @@ public class Constants
 
     public static final float MAGE_MOVING_ANIMATION_SPEED = 0.05f;
 
+    public static final float WALL_WIDTH = 4.5f;
+
+    public static final float CAMERA_MAX_ZOOM_IN = 0.25f;
+    public static final float CAMERA_MAX_ZOOM_OUT = 10.0f;
+
+    public static final float DOOR_WIDTH = 3.0f;
+
     public enum ClassType
     {
         ARCHER,

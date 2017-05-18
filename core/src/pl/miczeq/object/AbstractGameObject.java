@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import java.util.List;
+
 /**
  * Created by mikolaj on 5/18/17.
  * Pixel Dungeon
@@ -24,6 +26,63 @@ public abstract class AbstractGameObject
         this.y = y;
         this.width = width;
         this.height = height;
+    }
+
+    public static String collideWithObject(AbstractGameObject objA, AbstractGameObject objB)
+    {
+        String direction = null;
+
+        double vX = (objA.x + (objA.width / 2.0f)) - (objB.x + (objB.width / 2.0f));
+        double vY = (objA.y + (objA.height / 2.0f)) - (objB.y + (objB.height / 2.0f));
+        double hW = (objA.width / 2.0f) + (objB.width / 2.0f);
+        double hH = (objA.height / 2.0f) + (objB.height / 2.0f);
+
+        if(Math.abs(vX) < hW && Math.abs(vY) < hH)
+        {
+            double oX = hW - Math.abs(vX);
+            double oY = hH - Math.abs(vY);
+
+            if(oX >= oY)
+            {
+                if(vY > 0)
+                {
+                    direction = "top";
+                    objA.y += oY;
+                }
+                else
+                {
+                    direction = "bot";
+                    objA.y -= oY;
+                }
+            }
+            else
+            {
+                if(vX > 0)
+                {
+                    direction = "left";
+                    objA.x += oX;
+                }
+                else
+                {
+                    direction = "right";
+                    objA.x -= oX;
+                }
+            }
+        }
+
+        return direction;
+    }
+
+    public static String collideWithObjects(AbstractGameObject objA, List<AbstractGameObject> objects)
+    {
+        String direction = null;
+
+        for(AbstractGameObject object : objects)
+        {
+            direction = collideWithObject(objA, object);
+        }
+
+        return direction;
     }
 
     public void draw(SpriteBatch batch)

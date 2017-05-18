@@ -94,18 +94,6 @@ public class ClassSelectionScreen extends AbstractScreen
         }
     }
 
-    private void goToGame()
-    {
-        switch (selectedClass)
-        {
-            case MAGE:
-            {
-
-            }
-            break;
-        }
-    }
-
     public void render(float delta)
     {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

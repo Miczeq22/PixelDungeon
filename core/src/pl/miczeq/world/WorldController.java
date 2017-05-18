@@ -1,8 +1,10 @@
 package pl.miczeq.world;
 
 import pl.miczeq.object.AbstractClass;
+import pl.miczeq.object.AbstractGameObject;
 import pl.miczeq.object.Mage;
 import pl.miczeq.util.Constants;
+import pl.miczeq.util.RoomType;
 
 /**
  * Created by mikolaj on 5/18/17.
@@ -32,12 +34,14 @@ public class WorldController
             }break;
         }
 
-        room = new Room(0.0f, 0.0f);
+        room = RoomType.getRoom(0.0f, 0.0f, RoomType.Type.FULL);
     }
 
     public void update(float delta)
     {
         player.update(delta);
+
+        AbstractGameObject.collideWithObjects(player, room.getWalls());
     }
 
     public AbstractClass getPlayer()

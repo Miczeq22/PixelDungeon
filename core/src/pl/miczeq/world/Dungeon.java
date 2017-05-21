@@ -92,6 +92,22 @@ public class Dungeon
                 door.update(player);
                 AbstractGameObject.collideWithParticles(door, particles);
             }
+
+            for(Mob mob : room.getMobs())
+            {
+                mob.update(delta);
+                mob.followTarget(player);
+            }
+        }
+
+        for(Mob mob : actualRoom.getMobs())
+        {
+            if(AbstractGameObject.collideWithObject(mob, player) != null)
+            {
+                player.setVelX(mob.getVelX() * 3.0f);
+                player.setVelY(mob.getVelY() * 3.0f);
+                player.setHp(player.getHp() - 1);
+            }
         }
 
         if (actualRoom.targetInside(player) && actualRoom.isFirstVisit())
@@ -130,17 +146,15 @@ public class Dungeon
             AbstractGameObject.collideWithParticles(wall, particles);
         }
 
-        cleanUp(delta);
+        cleanUp();
     }
 
-    private void cleanUp(float delta)
+    private void cleanUp()
     {
         Iterator<Mob> mobIterator = actualRoom.getMobs().iterator();
         while (mobIterator.hasNext())
         {
             Mob mob = mobIterator.next();
-
-            mob.update(delta);
 
             if (mob.getHp() <= 0)
             {
@@ -186,6 +200,8 @@ public class Dungeon
                 if (mob.getHp() > 0 && AbstractGameObject.collideWithObject(bullet, mob) != null)
                 {
                     bulletIterator.remove();
+                    mob.setVelX(bullet.getVelX() * 3.0f);
+                    mob.setVelY(bullet.getVelY() * 3.0f);
                     mob.setHp(mob.getHp() - player.getAttackPower());
                 }
             }

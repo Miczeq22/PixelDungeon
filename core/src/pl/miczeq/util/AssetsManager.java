@@ -44,6 +44,10 @@ public class AssetsManager implements Disposable, AssetErrorListener
         public Sound cardSelected;
         public Music selectionTheme;
 
+        public Music mobGrowl;
+        public Music mobGrowl2;
+        public Music mobGrowl3;
+
         public Sounds()
         {
             campfire = Gdx.audio.newMusic(Gdx.files.internal("sounds/campfire.ogg"));
@@ -54,7 +58,11 @@ public class AssetsManager implements Disposable, AssetErrorListener
             cardSelected = Gdx.audio.newSound(Gdx.files.internal("sounds/cardSelected.ogg"));
 
             dungeonTheme = Gdx.audio.newMusic(Gdx.files.internal("sounds/dungeonTheme.ogg"));
-            selectionTheme = Gdx.audio.newMusic(Gdx.files.internal("sounds/selectionTheme.mp3"));
+            selectionTheme = Gdx.audio.newMusic(Gdx.files.internal("sounds/selectionTheme.ogg"));
+
+            mobGrowl = Gdx.audio.newMusic(Gdx.files.internal("sounds/mobGrowl.ogg"));
+            mobGrowl2 = Gdx.audio.newMusic(Gdx.files.internal("sounds/mobGrowl2.ogg"));
+            mobGrowl3 = Gdx.audio.newMusic(Gdx.files.internal("sounds/mobGrowl3.ogg"));
         }
     }
 
@@ -64,6 +72,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
         public final TextureRegion doorOpen;
         public final TextureRegion doorClosedVertical;
         public final TextureRegion doorClosedHorizontal;
+        public final TextureRegion hearth;
 
         public Room(TextureAtlas atlas)
         {
@@ -71,6 +80,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
             doorOpen = atlas.findRegion("doorOpen");
             doorClosedVertical = atlas.findRegion("doorClosed");
             doorClosedHorizontal = atlas.findRegion("doorClosedR");
+            hearth = atlas.findRegion("hearth");
         }
     }
 
@@ -245,6 +255,15 @@ public class AssetsManager implements Disposable, AssetErrorListener
 
         manager.unload("BGAnimation.png");
         manager.unload("ScreenTransition.png");
+
+        sounds.campfire.dispose();
+        sounds.click.dispose();
+        sounds.dungeonTheme.dispose();
+        sounds.selectionTheme.dispose();
+        sounds.cardSelected.dispose();
+        sounds.mageShoot.dispose();
+        sounds.knightAttack.dispose();
+        sounds.walking.dispose();
 
         manager.dispose();
     }

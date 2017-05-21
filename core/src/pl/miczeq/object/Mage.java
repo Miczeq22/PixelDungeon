@@ -36,6 +36,8 @@ public class Mage extends AbstractClass
 
         attackTime = 0.0f;
         attackPower = 3;
+
+        hp = 2;
     }
 
     protected void doAttack(Direction direction)

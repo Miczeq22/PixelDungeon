@@ -23,6 +23,7 @@ public abstract class AbstractClass extends AbstractGameObject
     protected float step;
 
     protected int attackPower;
+    protected int hp;
 
     protected boolean moving;
     protected boolean attacking;
@@ -297,5 +298,25 @@ public abstract class AbstractClass extends AbstractGameObject
     public int getAttackPower()
     {
         return attackPower;
+    }
+
+    public int getHp()
+    {
+        return hp;
+    }
+
+    public void setHp(int hp)
+    {
+        this.hp = hp;
+    }
+
+    public void setVelX(float velX)
+    {
+        this.velX = velX;
+    }
+
+    public void setVelY(float velY)
+    {
+        this.velY = velY;
     }
 }

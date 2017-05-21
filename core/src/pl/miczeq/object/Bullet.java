@@ -24,4 +24,14 @@ public class Bullet extends AbstractGameObject
         x += velX * delta;
         y += velY * delta;
     }
+
+    public float getVelX()
+    {
+        return velX;
+    }
+
+    public float getVelY()
+    {
+        return velY;
+    }
 }

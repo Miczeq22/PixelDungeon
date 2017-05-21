@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pl.miczeq.object.Bullet;
 import pl.miczeq.object.Mob;
 import pl.miczeq.object.Particle;
+import pl.miczeq.util.AssetsManager;
 import pl.miczeq.util.Constants;
 
 /**
@@ -60,10 +61,24 @@ public class WorldRenderer
         }
 
         sr.setProjectionMatrix(hudCamera.combined);
+
+        drawHUD(batch, sr);
+    }
+
+    private void drawHUD(SpriteBatch batch, ShapeRenderer sr)
+    {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.BLACK);
         sr.rect(0.0f, Constants.WORLD_HEIGHT, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT - Constants
                 .WORLD_HEIGHT);
         sr.end();
+
+        batch.setProjectionMatrix(hudCamera.combined);
+        batch.begin();
+            for(int i = 0; i < worldController.getPlayer().getHp(); i++)
+            {
+                batch.draw(AssetsManager.instance.room.hearth, i * (3.0f + 0.5f), Constants.WORLD_HEIGHT + 1.0f, 3.0f, 3.0f);
+            }
+        batch.end();
     }
 }

@@ -34,6 +34,8 @@ public class Knight extends AbstractClass
         maxSpeed = 12.0f;
         step = 4.0f;
         attackPower = 1;
+
+        hp = 5;
     }
 
     protected void doAttack(Direction direction)

@@ -1,5 +1,6 @@
 package pl.miczeq.object;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pl.miczeq.util.Animator;
@@ -12,6 +13,8 @@ import pl.miczeq.util.Constants;
  */
 public class Knight extends AbstractClass
 {
+    private float attackTime;
+
     public Knight(float x, float y)
     {
         super(x, y, Constants.KNIGHT_WIDTH, Constants.KNIGHT_HEIGHT);
@@ -33,9 +36,19 @@ public class Knight extends AbstractClass
 
         maxSpeed = 12.0f;
         step = 4.0f;
-        attackPower = 1;
+        attackPower = 2;
 
         hp = 5;
+
+        attackTime = 0.0f;
+    }
+
+    private void setHitBox(float x, float y, float width, float height)
+    {
+        hitBox.x = x;
+        hitBox.y = y;
+        hitBox.width = width;
+        hitBox.height = height;
     }
 
     protected void doAttack(Direction direction)
@@ -45,31 +58,40 @@ public class Knight extends AbstractClass
             AssetsManager.instance.sounds.knightAttack.play();
         }
 
-        switch (direction)
+        if(attackTime <= 0.0f)
         {
-            case RIGHT:
+            switch (direction)
             {
+                case RIGHT:
+                {
+                    setHitBox(x + width, y, 2.0f, height);
+                }
+                break;
 
+                case LEFT:
+                {
+                    setHitBox(x - 1.0f, y, 2.0f, height);
+                }
+                break;
+
+                case UP:
+                {
+                    setHitBox(x, y + height - 0.5f, width + 1.0f, 2.0f);
+                }
+                break;
+
+                case DOWN:
+                {
+                    setHitBox(x + 0.2f, y - 1.5f, width + 0.8f, 2.0f);
+                }
+                break;
             }
-            break;
-
-            case LEFT:
-            {
-
-            }
-            break;
-
-            case UP:
-            {
-
-            }
-            break;
-
-            case DOWN:
-            {
-
-            }
-            break;
+            attackTime = 0.1f;
+        }
+        else
+        {
+            attackTime -= Gdx.graphics.getDeltaTime();
+            setHitBox(x, y, 0.0f, 0.0f);
         }
     }
 

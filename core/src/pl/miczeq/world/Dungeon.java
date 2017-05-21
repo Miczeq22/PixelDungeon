@@ -22,25 +22,27 @@ public class Dungeon
     private AbstractClass player;
 
     private Room actualRoom;
-
     private List<Particle> particles;
 
     private boolean shake;
 
+    private boolean mobCanHit;
+    private float timeUntilMobCanHit;
+
     public Dungeon(AbstractClass player)
     {
-        init();
-
         this.player = player;
-
-        particles = new ArrayList<Particle>();
-
-        shake = false;
+        init();
     }
 
     private void init()
     {
         rooms = new ArrayList<Room>();
+        particles = new ArrayList<Particle>();
+        shake = false;
+
+        mobCanHit = true;
+        timeUntilMobCanHit = 0.5f;
 
         generateTestDungeon();
     }
@@ -78,6 +80,20 @@ public class Dungeon
     {
         AbstractGameObject.collideWithParticles(player, particles);
         actualRoom.update();
+
+        if(!mobCanHit)
+        {
+            if(timeUntilMobCanHit > 0.0f)
+            {
+                timeUntilMobCanHit -= delta;
+            }
+            else
+            {
+                mobCanHit = true;
+                timeUntilMobCanHit = 0.5f;
+            }
+        }
+
         for (Room room : rooms)
         {
             AbstractGameObject.collideWithObjects(player, room.getWalls());
@@ -104,9 +120,20 @@ public class Dungeon
         {
             if(AbstractGameObject.collideWithObject(mob, player) != null)
             {
-                player.setVelX(mob.getVelX() * 3.0f);
-                player.setVelY(mob.getVelY() * 3.0f);
-                player.setHp(player.getHp() - 1);
+                if(mobCanHit)
+                {
+                    player.setVelX(mob.getVelX() * 3.0f);
+                    player.setVelY(mob.getVelY() * 3.0f);
+                    player.setHp(player.getHp() - 1);
+                    mobCanHit = false;
+                }
+            }
+
+            if(AbstractGameObject.collideWithObject(mob, player.getHitBox()) != null)
+            {
+                mob.setVelX(player.getVelX() * 5.0f);
+                mob.setVelY(player.getVelY() * 5.0f);
+                mob.setHp(mob.getHp() - player.getAttackPower());
             }
         }
 
@@ -124,7 +151,7 @@ public class Dungeon
             for(int i = 0; i < max; i++)
             {
                 actualRoom.getMobs().add(new Mob(MathUtils.random(actualRoom.getCenterX() - 5.0f, actualRoom.getCenterX() + 5.0f),
-                        MathUtils.random(actualRoom.getCenterY() - 5.0f, actualRoom.getCenterY() + 5.0f), 3.0f, 3.0f));
+                        MathUtils.random(actualRoom.getCenterY()- 2.0f, actualRoom.getCenterY() + 2.0f), 3.0f, 3.0f));
             }
         }
 
@@ -197,7 +224,7 @@ public class Dungeon
 
             for (Mob mob : actualRoom.getMobs())
             {
-                if (mob.getHp() > 0 && AbstractGameObject.collideWithObject(bullet, mob) != null)
+                if ((mob.getHp() > 0 && AbstractGameObject.collideWithObject(bullet, mob) != null))
                 {
                     bulletIterator.remove();
                     mob.setVelX(bullet.getVelX() * 3.0f);

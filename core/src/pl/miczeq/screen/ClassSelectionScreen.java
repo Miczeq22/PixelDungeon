@@ -86,7 +86,7 @@ public class ClassSelectionScreen extends AbstractScreen
 
         if (cardSelected)
         {
-            if (selectBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched() && cardSelected)
+            if (selectBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched() && cardSelected && selectedClass != Constants.ClassType.ARCHER)
             {
                 AssetsManager.instance.sounds.cardSelected.play();
                 game.setScreen(new GameScreen(game, selectedClass));

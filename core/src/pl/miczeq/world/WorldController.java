@@ -1,15 +1,8 @@
 package pl.miczeq.world;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import pl.miczeq.object.*;
 import pl.miczeq.util.Constants;
-import pl.miczeq.util.RoomType;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by mikolaj on 5/18/17.

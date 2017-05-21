@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pl.miczeq.util.Animator;
 import pl.miczeq.util.AssetsManager;
 import pl.miczeq.util.Constants;
+import pl.miczeq.util.HitBox;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,7 @@ public abstract class AbstractClass extends AbstractGameObject
     private float textureHeight;
 
     protected ArrayList<Bullet> bullets;
+    protected HitBox hitBox;
 
     protected float attackTime;
 
@@ -73,6 +75,7 @@ public abstract class AbstractClass extends AbstractGameObject
         stateTime = 0.0f;
 
         bullets = new ArrayList<Bullet>();
+        hitBox = new HitBox(x, y, width, 2.0f);
     }
 
     public void update(float delta)
@@ -91,6 +94,12 @@ public abstract class AbstractClass extends AbstractGameObject
         }
 
         animationUpdate(delta);
+
+        if(!attacking)
+        {
+            hitBox.setWidth(0.0f);
+            hitBox.setHeight(0.0f);
+        }
     }
 
     private void animationUpdate(float delta)
@@ -133,7 +142,6 @@ public abstract class AbstractClass extends AbstractGameObject
 
     public void drawDebug(ShapeRenderer sr)
     {
-
     }
 
     private void doAnimation(SpriteBatch batch, boolean moving)
@@ -318,5 +326,10 @@ public abstract class AbstractClass extends AbstractGameObject
     public void setVelY(float velY)
     {
         this.velY = velY;
+    }
+
+    public HitBox getHitBox()
+    {
+        return hitBox;
     }
 }

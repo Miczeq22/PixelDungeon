@@ -73,6 +73,11 @@ public class GameScreen extends AbstractScreen
                 shakeElapsed = 0.0f;
             }
         }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+        {
+            game.setScreen(new MenuScreen(game));
+        }
     }
 
     private void shakeCamera(float delta)

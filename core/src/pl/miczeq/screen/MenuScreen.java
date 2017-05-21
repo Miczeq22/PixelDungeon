@@ -48,6 +48,10 @@ public class MenuScreen extends AbstractScreen
 
         stage.addActor(bgImg);
         stage.addActor(playBtn);
+
+        AssetsManager.instance.sounds.campfire.setLooping(true);
+        AssetsManager.instance.sounds.campfire.play();
+
     }
 
     public void update(float delta)
@@ -62,6 +66,7 @@ public class MenuScreen extends AbstractScreen
             playBtn.setTextureRegion(AssetsManager.instance.stageUI.playBtnHover);
             if(Gdx.input.justTouched())
             {
+                AssetsManager.instance.sounds.click.play();
                 playBtn.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.run(new Runnable()
                 {
                     @Override

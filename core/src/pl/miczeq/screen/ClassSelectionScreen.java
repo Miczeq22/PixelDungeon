@@ -64,6 +64,10 @@ public class ClassSelectionScreen extends AbstractScreen
 
         stage.addActor(selectBtn);
         stage.addActor(backBtn);
+
+        AssetsManager.instance.sounds.campfire.stop();
+        AssetsManager.instance.sounds.selectionTheme.setLooping(true);
+        AssetsManager.instance.sounds.selectionTheme.play();
     }
 
     public void update(float delta)
@@ -72,8 +76,9 @@ public class ClassSelectionScreen extends AbstractScreen
 
         for (int i = 0; i < classCards.length; i++)
         {
-            if (classCards[i].pointerIsIn(stageCamera) && Gdx.input.justTouched())
+            if (classCards[i].pointerIsIn(stageCamera) && Gdx.input.justTouched() && !cardSelected)
             {
+                AssetsManager.instance.sounds.click.play();
                 selectedClass = classCards[i].getClassType();
                 cardSelected = true;
             }
@@ -81,13 +86,15 @@ public class ClassSelectionScreen extends AbstractScreen
 
         if (cardSelected)
         {
-            if (selectBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched())
+            if (selectBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched() && cardSelected)
             {
+                AssetsManager.instance.sounds.cardSelected.play();
                 game.setScreen(new GameScreen(game, selectedClass));
             }
 
-            if (backBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched())
+            if (backBtn.pointerIsIn(stageCamera) && Gdx.input.justTouched() && cardSelected)
             {
+                AssetsManager.instance.sounds.click.play();
                 cardSelected = false;
                 selectedClass = Constants.ClassType.NONE;
             }

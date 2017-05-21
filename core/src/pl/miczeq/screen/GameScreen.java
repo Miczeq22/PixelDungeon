@@ -2,6 +2,7 @@ package pl.miczeq.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -28,18 +29,16 @@ public class GameScreen extends AbstractScreen
 
     private CameraHelper cameraHelper;
 
+    private float shakeElapsed;
+
     public GameScreen(Main game, Constants.ClassType classType)
     {
         super(game);
 
         this.classType = classType;
-    }
 
-    protected void init()
-    {
-        super.init();
+        worldController = new WorldController(classType);
 
-        worldController = new WorldController(Constants.ClassType.MAGE);
         worldRenderer = new WorldRenderer(worldController);
         screenTransition = new Image(AssetsManager.instance.stageUI.screenTransition);
         screenTransition.setSize(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT);
@@ -48,6 +47,12 @@ public class GameScreen extends AbstractScreen
         stage.addActor(screenTransition);
 
         cameraHelper = new CameraHelper(worldCamera);
+
+        AssetsManager.instance.sounds.selectionTheme.stop();
+        AssetsManager.instance.sounds.dungeonTheme.setLooping(true);
+        AssetsManager.instance.sounds.dungeonTheme.play();
+
+        shakeElapsed = 0.0f;
     }
 
     public void update(float delta)
@@ -56,6 +61,32 @@ public class GameScreen extends AbstractScreen
 
         stage.act(delta);
         worldController.update(delta);
+        worldController.updateCamera(worldCamera);
+
+        if(worldController.getDungeon().isShake())
+        {
+            shakeCamera(delta);
+
+            if(shakeElapsed >= Constants.SHOOT_SHAKE_DURATION)
+            {
+                worldController.getDungeon().setShake(false);
+                shakeElapsed = 0.0f;
+            }
+        }
+    }
+
+    private void shakeCamera(float delta)
+    {
+        if(shakeElapsed < Constants.SHOOT_SHAKE_DURATION)
+        {
+            float currentPower = Constants.SHOOT_SHAKE_POWER * worldCamera.zoom * ((Constants.SHOOT_SHAKE_DURATION - shakeElapsed) / Constants.SHOOT_SHAKE_DURATION);
+            float x = (MathUtils.random() - 0.5f) * currentPower;
+            float y = (MathUtils.random() - 0.5f) * currentPower;
+
+            worldCamera.translate(x, y);
+
+            shakeElapsed += delta;
+        }
     }
 
     public void render(float delta)

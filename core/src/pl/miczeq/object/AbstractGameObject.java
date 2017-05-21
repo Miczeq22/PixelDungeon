@@ -85,6 +85,18 @@ public abstract class AbstractGameObject
         return direction;
     }
 
+    public static String collideWithParticles(AbstractGameObject object, List<Particle> particles)
+    {
+        String direction = null;
+
+        for(Particle particle : particles)
+        {
+            direction = collideWithObject(particle, object);
+        }
+
+        return direction;
+    }
+
     public void draw(SpriteBatch batch)
     {
         batch.begin();
@@ -98,5 +110,45 @@ public abstract class AbstractGameObject
         sr.begin(ShapeRenderer.ShapeType.Filled);
             sr.rect(x, y, width, height);
         sr.end();
+    }
+
+    public float getX()
+    {
+        return x;
+    }
+
+    public float getY()
+    {
+        return y;
+    }
+
+    public float getWidth()
+    {
+        return width;
+    }
+
+    public float getHeight()
+    {
+        return height;
+    }
+
+    public void setX(float x)
+    {
+        this.x = x;
+    }
+
+    public void setY(float y)
+    {
+        this.y = y;
+    }
+
+    public void setWidth(float width)
+    {
+        this.width = width;
+    }
+
+    public void setHeight(float height)
+    {
+        this.height = height;
     }
 }

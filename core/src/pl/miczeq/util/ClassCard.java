@@ -2,7 +2,6 @@ package pl.miczeq.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -21,7 +20,7 @@ public class ClassCard extends Image
     private TextureRegion cardTexture;
     private TextureRegion infoTexture;
 
-    private final Constants.ClassType classType;
+    private Constants.ClassType classType;
 
     private Image infoImage;
 

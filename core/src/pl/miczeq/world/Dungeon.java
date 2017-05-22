@@ -122,8 +122,8 @@ public class Dungeon
             {
                 if(mobCanHit)
                 {
-                    player.setVelX(mob.getVelX() * 3.0f);
-                    player.setVelY(mob.getVelY() * 3.0f);
+                    player.setVelX(mob.getVelX() * 5.0f);
+                    player.setVelY(mob.getVelY() * 5.0f);
                     player.setHp(player.getHp() - 1);
                     mobCanHit = false;
                 }
@@ -211,6 +211,12 @@ public class Dungeon
                     bulletIterator.remove();
                 }
             }
+        }
+
+        bulletIterator = player.getBullets().iterator();
+        while (bulletIterator.hasNext())
+        {
+            Bullet bullet = bulletIterator.next();
 
             for (Door door : actualRoom.getDoors())
             {
@@ -221,6 +227,12 @@ public class Dungeon
                     bulletIterator.remove();
                 }
             }
+        }
+
+        bulletIterator = player.getBullets().iterator();
+        while(bulletIterator.hasNext())
+        {
+            Bullet bullet = bulletIterator.next();
 
             for (Mob mob : actualRoom.getMobs())
             {

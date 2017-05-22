@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import pl.miczeq.main.Main;
 import pl.miczeq.util.Constants;
+import pl.miczeq.util.MyTouchpad;
 
 /**
  * Created by mikolaj on 5/17/17.
@@ -41,6 +42,8 @@ public abstract class AbstractScreen implements Screen
         initStageCamera();
 
         stage = new Stage(new StretchViewport(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT, stageCamera));
+
+        Gdx.input.setInputProcessor(stage);
     }
 
     private void initWorldCamera()

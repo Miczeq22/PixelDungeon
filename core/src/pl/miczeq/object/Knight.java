@@ -36,7 +36,7 @@ public class Knight extends AbstractClass
 
         maxSpeed = 12.0f;
         step = 4.0f;
-        attackPower = 2;
+        attackPower = 1;
 
         hp = 5;
 
@@ -86,12 +86,13 @@ public class Knight extends AbstractClass
                 }
                 break;
             }
-            attackTime = 0.1f;
+
+            attackTime = 0.05f;
         }
         else
         {
-            attackTime -= Gdx.graphics.getDeltaTime();
             setHitBox(x, y, 0.0f, 0.0f);
+            attackTime -= Gdx.graphics.getDeltaTime();
         }
     }
 

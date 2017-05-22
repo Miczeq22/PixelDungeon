@@ -20,6 +20,9 @@ public class Mob extends AbstractGameObject
 
     private boolean soundPlaying;
 
+    private boolean canMove;
+    private float timeToWait;
+
     public Mob(float x, float y, float width, float height)
     {
         super(x, y, width, height);
@@ -29,12 +32,22 @@ public class Mob extends AbstractGameObject
         sounds[0] = AssetsManager.instance.sounds.mobGrowl;
         sounds[1] = AssetsManager.instance.sounds.mobGrowl2;
         sounds[2] = AssetsManager.instance.sounds.mobGrowl3;
+
+        canMove = false;
+        timeToWait = MathUtils.random(0.3f, 0.7f);
     }
 
     public void update(float delta)
     {
-        x += velX * delta;
-        y += velY * delta;
+        if(timeToWait <= 0.0f)
+        {
+            x += velX * delta;
+            y += velY * delta;
+        }
+        else
+        {
+            timeToWait -= delta;
+        }
 
         velX *= Constants.FRICTION;
         velY *= Constants.FRICTION;
@@ -62,11 +75,11 @@ public class Mob extends AbstractGameObject
 
         float norm = (float) Math.sqrt(dx * dx + dy * dy);
 
-        dx  /= norm;
+        dx /= norm;
         dy /= norm;
 
-        velX = dx * 7.0f;
-        velY = dy * 7.0f;
+        velX = dx * 5.0f;
+        velY = dy * 5.0f;
     }
 
     public int getHp()

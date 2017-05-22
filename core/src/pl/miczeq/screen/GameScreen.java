@@ -11,6 +11,7 @@ import pl.miczeq.main.Main;
 import pl.miczeq.util.AssetsManager;
 import pl.miczeq.util.CameraHelper;
 import pl.miczeq.util.Constants;
+import pl.miczeq.util.MyTouchpad;
 import pl.miczeq.world.WorldController;
 import pl.miczeq.world.WorldRenderer;
 
@@ -30,6 +31,7 @@ public class GameScreen extends AbstractScreen
     private CameraHelper cameraHelper;
 
     private float shakeElapsed;
+    private MyTouchpad myTouchpad;
 
     public GameScreen(Main game, Constants.ClassType classType)
     {
@@ -44,6 +46,10 @@ public class GameScreen extends AbstractScreen
         screenTransition.setSize(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT);
         screenTransition.setPosition(0.0f, 0.0f);
         screenTransition.addAction(Actions.fadeOut(2.0f, Interpolation.pow5));
+
+        myTouchpad = new MyTouchpad();
+        //stage.addActor(myTouchpad.getTouchpad());
+
         stage.addActor(screenTransition);
 
         cameraHelper = new CameraHelper(worldCamera);

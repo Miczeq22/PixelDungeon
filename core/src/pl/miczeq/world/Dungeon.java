@@ -18,16 +18,10 @@ import java.util.List;
 public class Dungeon
 {
     private List<Room> rooms;
-
     private AbstractClass player;
-
     private Room actualRoom;
     private List<Particle> particles;
-
     private boolean shake;
-
-    private boolean mobCanHit;
-    private float timeUntilMobCanHit;
 
     public Dungeon(AbstractClass player)
     {
@@ -40,9 +34,6 @@ public class Dungeon
         rooms = new ArrayList<Room>();
         particles = new ArrayList<Particle>();
         shake = false;
-
-        mobCanHit = true;
-        timeUntilMobCanHit = 0.5f;
 
         generateTestDungeon();
     }
@@ -81,18 +72,9 @@ public class Dungeon
         AbstractGameObject.collideWithParticles(player, particles);
         actualRoom.update();
 
-        if(!mobCanHit)
-        {
-            if(timeUntilMobCanHit > 0.0f)
-            {
-                timeUntilMobCanHit -= delta;
-            }
-            else
-            {
-                mobCanHit = true;
-                timeUntilMobCanHit = 0.5f;
-            }
-        }
+        cleanUp();
+
+
 
         for (Room room : rooms)
         {
@@ -102,30 +84,38 @@ public class Dungeon
             {
                 actualRoom = room;
             }
+        }
 
-            for (Door door : room.getDoors())
-            {
-                door.update(player);
-                AbstractGameObject.collideWithParticles(door, particles);
-            }
+        for (Door door : actualRoom.getDoors())
+        {
+            door.update(player);
+            AbstractGameObject.collideWithParticles(door, particles);
+        }
 
-            for(Mob mob : room.getMobs())
-            {
-                mob.update(delta);
-                mob.followTarget(player);
-            }
+        for(Mob mob : actualRoom.getMobs())
+        {
+            mob.update(delta);
+            mob.followTarget(player);
         }
 
         for(Mob mob : actualRoom.getMobs())
         {
             if(AbstractGameObject.collideWithObject(mob, player) != null)
             {
-                if(mobCanHit)
+                if(mob.isCanHit())
                 {
+                    mob.setCanHit(false);
                     player.setVelX(mob.getVelX() * 5.0f);
                     player.setVelY(mob.getVelY() * 5.0f);
-                    player.setHp(player.getHp() - 1);
-                    mobCanHit = false;
+                    if(player.getArmor() > 0)
+                    {
+                        player.setArmor(player.getArmor() - 1);
+                    }
+                    else
+                    {
+                        player.setArmor(player.getMaxArmor());
+                        player.setHp(player.getHp() - 1);
+                    }
                 }
             }
 
@@ -150,8 +140,8 @@ public class Dungeon
 
             for(int i = 0; i < max; i++)
             {
-                actualRoom.getMobs().add(new Mob(MathUtils.random(actualRoom.getCenterX() - 5.0f, actualRoom.getCenterX() + 5.0f),
-                        MathUtils.random(actualRoom.getCenterY()- 2.0f, actualRoom.getCenterY() + 2.0f), 3.0f, 3.0f));
+                actualRoom.getMobs().add(new Mob(MathUtils.random(actualRoom.getCenterX() - 15.0f, actualRoom.getCenterX() + 15.0f),
+                        MathUtils.random(actualRoom.getCenterY()- 5.0f, actualRoom.getCenterY() + 5.0f), 1.5f, 1.5f));
             }
         }
 
@@ -172,8 +162,6 @@ public class Dungeon
         {
             AbstractGameObject.collideWithParticles(wall, particles);
         }
-
-        cleanUp();
     }
 
     private void cleanUp()
@@ -186,28 +174,24 @@ public class Dungeon
             if (mob.getHp() <= 0)
             {
                 int max = MathUtils.random(8, 20);
-                addParticles(max, mob.getX(), mob.getY(), 0.5f, 0.5f);
+                addParticles(max, mob.getX(), mob.getY(), 0.1f, 0.1f);
                 mobIterator.remove();
                 shake = true;
             }
         }
 
         Iterator<Bullet> bulletIterator = player.getBullets().iterator();
-        while (bulletIterator.hasNext())
+        while(bulletIterator.hasNext())
         {
             Bullet bullet = bulletIterator.next();
 
-            if(!actualRoom.targetIsIn(bullet))
+            for (Mob mob : actualRoom.getMobs())
             {
-                bulletIterator.remove();
-            }
-
-            for (AbstractGameObject wall : actualRoom.getWalls())
-            {
-                if (AbstractGameObject.collideWithObject(bullet, wall) != null)
+                if ((mob.getHp() > 0 && AbstractGameObject.collideWithObject(bullet, mob) != null))
                 {
-                    int max = MathUtils.random(4, 10);
-                    addParticles(max, bullet.getX(), bullet.getY(), 0.25f, 0.25f);
+                    mob.setVelX(bullet.getVelX() * 3.0f);
+                    mob.setVelY(bullet.getVelY() * 3.0f);
+                    mob.setHp(mob.getHp() - player.getAttackPower());
                     bulletIterator.remove();
                 }
             }
@@ -230,18 +214,22 @@ public class Dungeon
         }
 
         bulletIterator = player.getBullets().iterator();
-        while(bulletIterator.hasNext())
+        while (bulletIterator.hasNext())
         {
             Bullet bullet = bulletIterator.next();
 
-            for (Mob mob : actualRoom.getMobs())
+            if(!actualRoom.targetIsIn(bullet))
             {
-                if ((mob.getHp() > 0 && AbstractGameObject.collideWithObject(bullet, mob) != null))
+                bulletIterator.remove();
+            }
+
+            for (AbstractGameObject wall : actualRoom.getWalls())
+            {
+                if (AbstractGameObject.collideWithObject(bullet, wall) != null)
                 {
+                    int max = MathUtils.random(7, 15);
+                    addParticles(max, bullet.getX(), bullet.getY(), 0.25f, 0.25f);
                     bulletIterator.remove();
-                    mob.setVelX(bullet.getVelX() * 3.0f);
-                    mob.setVelY(bullet.getVelY() * 3.0f);
-                    mob.setHp(mob.getHp() - player.getAttackPower());
                 }
             }
         }

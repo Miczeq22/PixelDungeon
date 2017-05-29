@@ -146,6 +146,8 @@ public class AssetsManager implements Disposable, AssetErrorListener
         public final TextureRegion mageCard;
         public final TextureRegion mageInfo;
 
+        public final Texture shield;
+
         public ClassCards(TextureAtlas atlas)
         {
             archerCard = atlas.findRegion("archerCard");
@@ -156,6 +158,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
 
             mageCard = atlas.findRegion("mageCard");
             mageInfo = atlas.findRegion("MageInfo");
+            shield = manager.get("shield.png");
         }
     }
 
@@ -209,6 +212,7 @@ public class AssetsManager implements Disposable, AssetErrorListener
         manager.load("pixelDungeon.pack.atlas", TextureAtlas.class);
         manager.load("BGAnimation.png", Texture.class);
         manager.load("ScreenTransition.png", Texture.class);
+        manager.load("shield.png", Texture.class);
         manager.finishLoading();
 
         TextureAtlas uiAtlas = manager.get("ui.pack.atlas");

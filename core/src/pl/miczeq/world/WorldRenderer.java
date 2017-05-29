@@ -77,8 +77,14 @@ public class WorldRenderer
         batch.begin();
             for(int i = 0; i < worldController.getPlayer().getHp(); i++)
             {
-                batch.draw(AssetsManager.instance.room.hearth, i * (3.0f + 0.5f), Constants.WORLD_HEIGHT + 1.0f, 3.0f, 3.0f);
+                batch.draw(AssetsManager.instance.room.hearth, i * (1.5f + 0.3f), Constants.WORLD_HEIGHT + 3.0f, 1.5f, 1.5f);
             }
+
+            for(int i = 0; i < worldController.getPlayer().getArmor(); i++)
+            {
+                batch.draw(AssetsManager.instance.classCards.shield, i * (1.5f + 0.3f), Constants.WORLD_HEIGHT + 0.3f, 1.5f, 2.0f);
+            }
+
         batch.end();
     }
 }

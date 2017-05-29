@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import pl.miczeq.main.Main;
 import pl.miczeq.util.Constants;
-import pl.miczeq.util.MyTouchpad;
 
 /**
  * Created by mikolaj on 5/17/17.

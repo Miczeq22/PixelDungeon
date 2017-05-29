@@ -1,10 +1,13 @@
 package pl.miczeq.object;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import pl.miczeq.screen.GameScreen;
 import pl.miczeq.util.Animator;
 import pl.miczeq.util.AssetsManager;
 import pl.miczeq.util.Constants;
@@ -25,6 +28,8 @@ public abstract class AbstractClass extends AbstractGameObject
 
     protected int attackPower;
     protected int hp;
+    protected int armor;
+    protected int maxArmor;
 
     protected boolean moving;
     protected boolean attacking;
@@ -55,7 +60,17 @@ public abstract class AbstractClass extends AbstractGameObject
         RIGHT
     }
 
+    public enum TouchpadDirection
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        NONE
+    }
+
     protected Direction direction;
+    protected TouchpadDirection touchpadDirection;
 
     public AbstractClass(float x, float y, float textureWidth, float textureHeight)
     {
@@ -209,12 +224,44 @@ public abstract class AbstractClass extends AbstractGameObject
         batch.end();
     }
 
+    private void getTouchpadDirection()
+    {
+        Vector2 touchpadVector = new Vector2(GameScreen.getMyTouchpad().getTouchpad().getKnobPercentX(), GameScreen.getMyTouchpad().getTouchpad().getKnobPercentY());
+        float touchpadAngle = touchpadVector.angle();
+
+        if(touchpadAngle >= 30 && touchpadAngle < 130)
+        {
+            touchpadDirection = TouchpadDirection.UP;
+        }
+        else if(touchpadAngle >= 230 && touchpadAngle <= 320)
+        {
+            touchpadDirection = TouchpadDirection.DOWN;
+        }
+        else if(touchpadAngle >= 130 && touchpadAngle < 230)
+        {
+            touchpadDirection = TouchpadDirection.LEFT;
+        }
+        else
+        {
+            touchpadDirection = TouchpadDirection.RIGHT;
+        }
+    }
+
     private void handleInput()
     {
         moving = false;
         attacking = false;
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W))
+        if(GameScreen.getMyTouchpad().getTouchpad().isTouched())
+        {
+            getTouchpadDirection();
+        }
+        else
+        {
+            touchpadDirection = TouchpadDirection.NONE;
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.W) || touchpadDirection == TouchpadDirection.UP)
         {
             moving = true;
             direction = Direction.UP;
@@ -224,7 +271,7 @@ public abstract class AbstractClass extends AbstractGameObject
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.S))
+        if(Gdx.input.isKeyPressed(Input.Keys.S) || touchpadDirection == TouchpadDirection.DOWN)
         {
             moving = true;
             direction = Direction.DOWN;
@@ -234,7 +281,7 @@ public abstract class AbstractClass extends AbstractGameObject
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A))
+        if(Gdx.input.isKeyPressed(Input.Keys.A) || touchpadDirection == TouchpadDirection.LEFT)
         {
             moving = true;
             direction = Direction.LEFT;
@@ -244,7 +291,7 @@ public abstract class AbstractClass extends AbstractGameObject
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.D))
+        if(Gdx.input.isKeyPressed(Input.Keys.D) || touchpadDirection == TouchpadDirection.RIGHT)
         {
             moving = true;
             direction = Direction.RIGHT;
@@ -331,5 +378,20 @@ public abstract class AbstractClass extends AbstractGameObject
     public HitBox getHitBox()
     {
         return hitBox;
+    }
+
+    public int getArmor()
+    {
+        return armor;
+    }
+
+    public void setArmor(int armor)
+    {
+        this.armor = armor;
+    }
+
+    public int getMaxArmor()
+    {
+        return maxArmor;
     }
 }

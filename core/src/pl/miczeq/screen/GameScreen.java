@@ -2,11 +2,12 @@ package pl.miczeq.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import pl.miczeq.main.Main;
 import pl.miczeq.util.AssetsManager;
 import pl.miczeq.util.CameraHelper;
@@ -31,7 +32,8 @@ public class GameScreen extends AbstractScreen
     private CameraHelper cameraHelper;
 
     private float shakeElapsed;
-    private MyTouchpad myTouchpad;
+
+    private static MyTouchpad myTouchpad;
 
     public GameScreen(Main game, Constants.ClassType classType)
     {
@@ -42,14 +44,10 @@ public class GameScreen extends AbstractScreen
         worldController = new WorldController(classType);
 
         worldRenderer = new WorldRenderer(worldController);
-        screenTransition = new Image(AssetsManager.instance.stageUI.screenTransition);
-        screenTransition.setSize(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT);
-        screenTransition.setPosition(0.0f, 0.0f);
-        screenTransition.addAction(Actions.fadeOut(2.0f, Interpolation.pow5));
 
         myTouchpad = new MyTouchpad();
-        //stage.addActor(myTouchpad.getTouchpad());
-
+        stage.addActor(myTouchpad.getTouchpad());
+        createScreenTransition();
         stage.addActor(screenTransition);
 
         cameraHelper = new CameraHelper(worldCamera);
@@ -59,6 +57,14 @@ public class GameScreen extends AbstractScreen
         AssetsManager.instance.sounds.dungeonTheme.play();
 
         shakeElapsed = 0.0f;
+    }
+
+    private void createScreenTransition()
+    {
+        screenTransition = new Image(AssetsManager.instance.stageUI.screenTransition);
+        screenTransition.setSize(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT);
+        screenTransition.setPosition(0.0f, 0.0f);
+        screenTransition.addAction(Actions.parallel(Actions.fadeOut(2.0f, Interpolation.pow5), Actions.hide()));
     }
 
     public void update(float delta)
@@ -112,5 +118,10 @@ public class GameScreen extends AbstractScreen
         batch.begin();
             stage.draw();
         batch.end();
+    }
+
+    public static MyTouchpad getMyTouchpad()
+    {
+        return myTouchpad;
     }
 }

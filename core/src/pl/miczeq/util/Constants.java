@@ -46,6 +46,9 @@ public class Constants
     public static final float SHOOT_SHAKE_DURATION = 0.8f;
     public static final float SHOOT_SHAKE_POWER = 0.7f;
 
+    public static final int KNIGHT_ARMOR = 4;
+    public static final int MAGE_ARMOR = 1;
+
     public enum ClassType
     {
         ARCHER,

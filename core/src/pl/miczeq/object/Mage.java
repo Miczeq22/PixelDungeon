@@ -38,6 +38,8 @@ public class Mage extends AbstractClass
         attackPower = 3;
 
         hp = 2;
+        maxArmor = Constants.MAGE_ARMOR;
+        armor = maxArmor;
     }
 
     protected void doAttack(Direction direction)

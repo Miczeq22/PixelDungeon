@@ -21,7 +21,10 @@ public class Mob extends AbstractGameObject
     private boolean soundPlaying;
 
     private boolean canMove;
-    private float timeToWait;
+    private float timeToRespawn;
+
+    private boolean canHit;
+    private float timeToNextHit;
 
     public Mob(float x, float y, float width, float height)
     {
@@ -34,19 +37,33 @@ public class Mob extends AbstractGameObject
         sounds[2] = AssetsManager.instance.sounds.mobGrowl3;
 
         canMove = false;
-        timeToWait = MathUtils.random(0.3f, 0.7f);
+        timeToRespawn = MathUtils.random(0.3f, 0.7f);
+        canHit = true;
+        timeToNextHit = 0.7f;
     }
 
     public void update(float delta)
     {
-        if(timeToWait <= 0.0f)
+        if(timeToRespawn <= 0.0f)
         {
             x += velX * delta;
             y += velY * delta;
         }
         else
         {
-            timeToWait -= delta;
+            timeToRespawn -= delta;
+        }
+
+        if(!canHit)
+        {
+            if(timeToNextHit <= 0.0f)
+            {
+                canHit = true;
+            }
+            else
+            {
+                timeToNextHit -= delta;
+            }
         }
 
         velX *= Constants.FRICTION;
@@ -110,5 +127,20 @@ public class Mob extends AbstractGameObject
     public void setVelY(float velY)
     {
         this.velY = velY;
+    }
+
+    public boolean isInTarget(AbstractGameObject target)
+    {
+        return x > target.x && x < target.x + target.width && y > target.y && y < target.y + target.height;
+    }
+
+    public boolean isCanHit()
+    {
+        return canHit;
+    }
+
+    public void setCanHit(boolean canHit)
+    {
+        this.canHit = canHit;
     }
 }

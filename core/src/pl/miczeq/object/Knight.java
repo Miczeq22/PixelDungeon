@@ -39,6 +39,8 @@ public class Knight extends AbstractClass
         attackPower = 1;
 
         hp = 5;
+        maxArmor = Constants.KNIGHT_ARMOR;
+        armor = maxArmor;
 
         attackTime = 0.0f;
     }
@@ -64,25 +66,25 @@ public class Knight extends AbstractClass
             {
                 case RIGHT:
                 {
-                    setHitBox(x + width, y, 2.0f, height);
+                    setHitBox(x + width, y, 1.0f, height);
                 }
                 break;
 
                 case LEFT:
                 {
-                    setHitBox(x - 1.0f, y, 2.0f, height);
+                    setHitBox(x - 1.0f, y, 1.0f, height);
                 }
                 break;
 
                 case UP:
                 {
-                    setHitBox(x, y + height - 0.5f, width + 1.0f, 2.0f);
+                    setHitBox(x, y + height - 0.5f, width + 1.0f, 1.0f);
                 }
                 break;
 
                 case DOWN:
                 {
-                    setHitBox(x + 0.2f, y - 1.5f, width + 0.8f, 2.0f);
+                    setHitBox(x + 0.2f, y - 1.5f, width + 0.8f, 1.0f);
                 }
                 break;
             }

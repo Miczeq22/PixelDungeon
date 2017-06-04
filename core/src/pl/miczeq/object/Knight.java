@@ -53,7 +53,7 @@ public class Knight extends AbstractClass
         hitBox.height = height;
     }
 
-    protected void doAttack(Direction direction)
+    protected void doAttack(Constants.PlayerDirection direction)
     {
         if(!AssetsManager.instance.sounds.knightAttack.isPlaying())
         {

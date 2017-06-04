@@ -22,7 +22,7 @@ public abstract class AbstractScreen implements Screen
     protected SpriteBatch batch;
 
     protected OrthographicCamera worldCamera;
-    protected OrthographicCamera stageCamera;
+    protected static OrthographicCamera stageCamera;
 
     protected Stage stage;
 
@@ -43,6 +43,7 @@ public abstract class AbstractScreen implements Screen
         stage = new Stage(new StretchViewport(Constants.STAGE_WIDTH, Constants.STAGE_HEIGHT, stageCamera));
 
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void initWorldCamera()
@@ -112,5 +113,10 @@ public abstract class AbstractScreen implements Screen
         sr.dispose();
         stage.dispose();
         game.dispose();
+    }
+
+    public static OrthographicCamera getStageCamera()
+    {
+        return stageCamera;
     }
 }

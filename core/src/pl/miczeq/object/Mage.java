@@ -42,7 +42,7 @@ public class Mage extends AbstractClass
         armor = maxArmor;
     }
 
-    protected void doAttack(Direction direction)
+    protected void doAttack(Constants.PlayerDirection direction)
     {
         if(!AssetsManager.instance.sounds.mageShoot.isPlaying())
         {

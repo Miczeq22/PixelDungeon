@@ -1,12 +1,12 @@
 package pl.miczeq.object;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.javafx.scene.traversal.Direction;
 import pl.miczeq.screen.GameScreen;
 import pl.miczeq.util.Animator;
 import pl.miczeq.util.AssetsManager;
@@ -52,25 +52,10 @@ public abstract class AbstractClass extends AbstractGameObject
 
     protected float attackTime;
 
-    public enum Direction
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    }
 
-    public enum TouchpadDirection
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        NONE
-    }
 
-    protected Direction direction;
-    protected TouchpadDirection touchpadDirection;
+    protected Constants.PlayerDirection direction;
+    protected Constants.TouchpadDirection touchpadDirection;
 
     public AbstractClass(float x, float y, float textureWidth, float textureHeight)
     {
@@ -86,7 +71,7 @@ public abstract class AbstractClass extends AbstractGameObject
         velY = 0.0f;
         moving = false;
         attacking = false;
-        direction = Direction.DOWN;
+        direction = Constants.PlayerDirection.DOWN;
         stateTime = 0.0f;
 
         bullets = new ArrayList<Bullet>();
@@ -153,7 +138,7 @@ public abstract class AbstractClass extends AbstractGameObject
         }
     }
 
-    protected abstract void doAttack(Direction direction);
+    protected abstract void doAttack(Constants.PlayerDirection direction);
 
     public void drawDebug(ShapeRenderer sr)
     {
@@ -231,19 +216,19 @@ public abstract class AbstractClass extends AbstractGameObject
 
         if(touchpadAngle >= 30 && touchpadAngle < 130)
         {
-            touchpadDirection = TouchpadDirection.UP;
+            touchpadDirection = Constants.TouchpadDirection.UP;
         }
         else if(touchpadAngle >= 230 && touchpadAngle <= 320)
         {
-            touchpadDirection = TouchpadDirection.DOWN;
+            touchpadDirection = Constants.TouchpadDirection.DOWN;
         }
         else if(touchpadAngle >= 130 && touchpadAngle < 230)
         {
-            touchpadDirection = TouchpadDirection.LEFT;
+            touchpadDirection = Constants.TouchpadDirection.LEFT;
         }
         else
         {
-            touchpadDirection = TouchpadDirection.RIGHT;
+            touchpadDirection = Constants.TouchpadDirection.RIGHT;
         }
     }
 
@@ -258,75 +243,75 @@ public abstract class AbstractClass extends AbstractGameObject
         }
         else
         {
-            touchpadDirection = TouchpadDirection.NONE;
+            touchpadDirection = Constants.TouchpadDirection.NONE;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W) || touchpadDirection == TouchpadDirection.UP)
+        if(Gdx.input.isKeyPressed(Input.Keys.W) || touchpadDirection == Constants.TouchpadDirection.UP)
         {
             moving = true;
-            direction = Direction.UP;
+            direction = Constants.PlayerDirection.UP;
             if(velY <= maxSpeed)
             {
                 velY += step;
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.S) || touchpadDirection == TouchpadDirection.DOWN)
+        if(Gdx.input.isKeyPressed(Input.Keys.S) || touchpadDirection == Constants.TouchpadDirection.DOWN)
         {
             moving = true;
-            direction = Direction.DOWN;
+            direction = Constants.PlayerDirection.DOWN;
             if(velY >= -maxSpeed)
             {
                 velY -= step;
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A) || touchpadDirection == TouchpadDirection.LEFT)
+        if(Gdx.input.isKeyPressed(Input.Keys.A) || touchpadDirection == Constants.TouchpadDirection.LEFT)
         {
             moving = true;
-            direction = Direction.LEFT;
+            direction = Constants.PlayerDirection.LEFT;
             if(velX >= -maxSpeed)
             {
                 velX -= step;
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.D) || touchpadDirection == TouchpadDirection.RIGHT)
+        if(Gdx.input.isKeyPressed(Input.Keys.D) || touchpadDirection == Constants.TouchpadDirection.RIGHT)
         {
             moving = true;
-            direction = Direction.RIGHT;
+            direction = Constants.PlayerDirection.RIGHT;
             if(velX <= maxSpeed)
             {
                 velX += step;
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.UP))
+        if(Gdx.input.isKeyPressed(Input.Keys.UP) || (Gdx.input.isTouched() && GameScreen.getUpButton().pointerIsIn(GameScreen.getStageCamera())))
         {
             attacking = true;
             moving = false;
-            direction = Direction.UP;
+            direction = Constants.PlayerDirection.UP;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) || (Gdx.input.isTouched() && GameScreen.getDownButton().pointerIsIn(GameScreen.getStageCamera())))
         {
             attacking = true;
             moving = false;
-            direction = Direction.DOWN;
+            direction = Constants.PlayerDirection.DOWN;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.isTouched() && GameScreen.getLeftButton().pointerIsIn(GameScreen.getStageCamera())))
         {
             attacking = true;
             moving = false;
-            direction = Direction.LEFT;
+            direction = Constants.PlayerDirection.LEFT;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || (Gdx.input.isTouched() && GameScreen.getRightButton().pointerIsIn(GameScreen.getStageCamera())))
         {
             attacking = true;
             moving = false;
-            direction = Direction.RIGHT;
+            direction = Constants.PlayerDirection.RIGHT;
         }
     }
 

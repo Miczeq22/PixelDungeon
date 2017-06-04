@@ -170,6 +170,10 @@ public class AssetsManager implements Disposable, AssetErrorListener
         public final TextureRegion playBtnHover;
         public final TextureRegion selectBtn;
         public final TextureRegion backBtn;
+        public final TextureRegion upBtn;
+        public final TextureRegion downBtn;
+        public final TextureRegion leftBtn;
+        public final TextureRegion rightBtn;
 
         public final Texture menuBgAnimaton;
         public final Texture screenTransition;
@@ -182,6 +186,11 @@ public class AssetsManager implements Disposable, AssetErrorListener
             playBtnHover = atlas.findRegion("PlayBtnHover");
             selectBtn = atlas.findRegion("SelectBtn");
             backBtn = atlas.findRegion("BackBtn");
+            upBtn = atlas.findRegion("arrowUp");
+            downBtn = atlas.findRegion("arrowDown");
+            leftBtn = atlas.findRegion("arrowLeft");
+            rightBtn = atlas.findRegion("arrowRight");
+
             menuBgAnimaton = manager.get("BGAnimation.png");
             screenTransition = manager.get("ScreenTransition.png");
         }

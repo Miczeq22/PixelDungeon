@@ -6,56 +6,63 @@ filter: Nearest,Nearest
 repeat: none
 bullet
   rotate: false
-  xy: 204, 39
+  xy: 204, 51
   size: 10, 5
   orig: 10, 5
   offset: 0, 0
   index: -1
 doorClosed
   rotate: false
-  xy: 2, 2
+  xy: 2, 14
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 doorClosedR
   rotate: false
-  xy: 386, 204
+  xy: 386, 216
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 doorOpen
   rotate: false
-  xy: 278, 86
+  xy: 278, 98
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 hearth
   rotate: false
-  xy: 36, 11
+  xy: 36, 23
   size: 26, 23
   orig: 26, 23
   offset: 0, 0
   index: -1
 room
   rotate: false
-  xy: 204, 120
+  xy: 204, 132
   size: 180, 116
   orig: 180, 116
   offset: 0, 0
   index: -1
+shield
+  rotate: false
+  xy: 2, 2
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
 touchBackground
   rotate: false
-  xy: 2, 36
+  xy: 2, 48
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 touchKnob
   rotate: false
-  xy: 204, 46
+  xy: 204, 58
   size: 72, 72
   orig: 72, 72
   offset: 0, 0

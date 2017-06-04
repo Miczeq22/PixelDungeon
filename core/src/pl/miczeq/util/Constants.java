@@ -56,4 +56,21 @@ public class Constants
         MAGE,
         NONE
     }
+
+    public enum PlayerDirection
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
+    public enum TouchpadDirection
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        NONE
+    }
 }

@@ -1,48 +1,76 @@
 
 ui.pack.png
-size: 512,128
+size: 1024,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 BackBtn
   rotate: false
-  xy: 468, 109
+  xy: 2, 2
   size: 40, 15
   orig: 40, 15
   offset: 0, 0
   index: -1
 MenuBG
   rotate: false
-  xy: 2, 24
+  xy: 2, 19
   size: 180, 100
   orig: 180, 100
   offset: 0, 0
   index: -1
 PixelDungeonLogo
   rotate: false
-  xy: 184, 24
+  xy: 184, 19
   size: 180, 100
   orig: 180, 100
   offset: 0, 0
   index: -1
 PlayBtn
   rotate: false
-  xy: 366, 64
+  xy: 366, 59
   size: 100, 60
   orig: 100, 60
   offset: 0, 0
   index: -1
 PlayBtnHover
   rotate: false
-  xy: 366, 2
+  xy: 468, 59
   size: 100, 60
   orig: 100, 60
   offset: 0, 0
   index: -1
 SelectBtn
   rotate: false
-  xy: 2, 7
+  xy: 570, 70
   size: 40, 15
   orig: 40, 15
+  offset: 0, 0
+  index: -1
+arrowDown
+  rotate: false
+  xy: 366, 25
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+arrowLeft
+  rotate: false
+  xy: 570, 87
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+arrowRight
+  rotate: false
+  xy: 400, 25
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+arrowUp
+  rotate: false
+  xy: 604, 87
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1

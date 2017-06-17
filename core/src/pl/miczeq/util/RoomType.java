@@ -65,7 +65,7 @@ public class RoomType
         List<AbstractGameObject> walls = new ArrayList<AbstractGameObject>();
 
         walls.addAll(Wall.getVerticalOpenWall(x, y));
-        walls.add(Wall.getVerticalWall(x + Constants.VIEWPORT_WIDTH - Constants.WALL_WIDTH, y));
+        walls.add(Wall.getVerticalWall(x + Constants.VIEWPORT_WIDTH - Constants.WALL_WIDTH  , y));
         walls.add(Wall.getHorizontalWall(x, y));
         walls.add(Wall.getHorizontalWall(x, y + Constants.WORLD_HEIGHT - Constants.WALL_WIDTH));
 
